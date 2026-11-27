@@ -27,6 +27,7 @@ export const NAV_ITEMS: NavItemConfig[] = [
     mobileBottomLabel: 'Xếp hạng',
     group: 'Tổng quan',
     allowedRoles: ['admin', 'streamer', 'executive'],
+    isPublic: true,
   },
   {
     code: 'CN-02',
@@ -36,6 +37,7 @@ export const NAV_ITEMS: NavItemConfig[] = [
     mobileBottomLabel: 'Đang Live',
     group: 'Tổng quan',
     allowedRoles: ['admin', 'streamer', 'executive'],
+    isPublic: true,
     badgeType: 'live',
   },
   {
@@ -53,7 +55,8 @@ export const NAV_ITEMS: NavItemConfig[] = [
     sidebarLabel: 'Chi tiết streamer',
     pageTitle: 'Chi tiết streamer',
     group: 'Streamer',
-    allowedRoles: ['admin', 'executive'],
+    allowedRoles: ['admin', 'streamer', 'executive'],
+    isPublic: true,
   },
   {
     code: 'CN-05',
@@ -135,11 +138,14 @@ export const NAV_ITEMS: NavItemConfig[] = [
 ];
 
 export function canAccessRoute(role: UserRole | null, pathname: string): boolean {
-  if (pathname === '/dang-nhap' || pathname === '/dang-ky-tham-gia') {
+  if (pathname === '/dang-nhap') {
+    return true;
+  }
+  const matched = NAV_ITEMS.find((item) => item.href === pathname);
+  if (matched?.isPublic) {
     return true;
   }
   if (!role) return false;
-  const matched = NAV_ITEMS.find((item) => item.href === pathname);
   if (!matched) return true;
   return matched.allowedRoles.includes(role);
 }

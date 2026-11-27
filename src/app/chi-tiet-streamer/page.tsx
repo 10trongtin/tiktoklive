@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { getCurrentSessionUser } from '@/lib/auth';
 import { getActiveSeason, getAllAppData } from '@/lib/repository';
 import { computeLeaderboard, getPeriodBounds } from '@/lib/scoring';
@@ -19,13 +18,8 @@ export default async function StreamerDetailPage({
 }: {
   searchParams: Promise<{ streamerId?: string }>;
 }) {
+  // Mở công khai minh bạch cho mọi người xem (chỉ Admin mới hiện nút Xem phiên chờ duyệt; không lộ SĐT/Email)
   const user = await getCurrentSessionUser();
-  if (!user) {
-    redirect('/dang-nhap');
-  }
-  if (user.role !== 'admin' && user.role !== 'executive') {
-    redirect('/dashboard-cua-toi');
-  }
 
   const resolvedParams = await searchParams;
   const data = await getAllAppData();
@@ -46,7 +40,7 @@ export default async function StreamerDetailPage({
       <StreamerDetailClient
         options={[]}
         selected={null}
-        canApprove={user.role === 'admin'}
+        canApprove={user?.role === 'admin'}
       />
     );
   }
@@ -203,7 +197,7 @@ export default async function StreamerDetailPage({
     <StreamerDetailClient
       options={options}
       selected={profile}
-      canApprove={user.role === 'admin'}
+      canApprove={user?.role === 'admin'}
     />
   );
 }

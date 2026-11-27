@@ -16,13 +16,13 @@
 ## 2. Ai dùng
 | Vai trò | Được làm gì ở chức năng này | Không được làm gì |
 |---|---|---|
-| Admin | Xem, đổi kỳ, xuất Excel, đi tới Duyệt phiên live | — |
-| Streamer / Cấp điều hành / Trưởng team | chưa rõ (CH-09) | chưa rõ |
+| Admin | Xem, đổi kỳ, xuất Excel, đi tới Duyệt phiên live, mở Chi tiết streamer | — |
+| Cấp điều hành | Xem, đổi kỳ, xuất Excel, mở Chi tiết streamer | Duyệt phiên chờ |
+| Streamer & Khách công khai (chưa đăng nhập) | Mở thẳng không cần đăng nhập; xem thông tin sự kiện & thể lệ, đổi kỳ, xem Đang Live, bấm tên mở Chi tiết streamer | Xuất Excel, Duyệt phiên chờ |
 
 ## 3. Đường vào màn
-1. Menu thanh bên "Bảng xếp hạng" (nhóm Tổng quan), hoặc menu dưới "Xếp hạng" trên điện thoại.
-- Là màn mở đầu tiên khi vào hệ thống (mẫu mở sẵn màn này).
-- Điều kiện vào màn: chưa rõ (CH-08, CH-09).
+1. Mở trực tiếp đường dẫn gốc `/` (công khai cho mọi người không cần đăng nhập), menu thanh bên "Bảng xếp hạng" (nhóm Tổng quan), hoặc menu dưới "Xếp hạng" trên điện thoại.
+- Là màn mở đầu tiên khi vào hệ thống.
 
 ## 4. Màn hình
 Ảnh / wireframe: chưa có (theo giao diện mẫu, khối `scr-rank`).
@@ -32,7 +32,8 @@
 | 1 | Bảng xếp hạng | Tiêu đề | — | — | — | — |
 | 2 | Dòng mô tả | Chữ | — | "Tuần 16/11 – 22/11 · Picity Central Park · Cập nhật 12 giây trước" | — | Số giây tự đếm lại. Tên dự án trên dòng này: CH-26 |
 | 3 | Tuần này · Tháng này · Từ đầu | Tab chọn một | — | — | Tuần này | Đổi kỳ → vẽ lại bục 3 hạng, bảng, thẻ "Tổng giờ live" (QT-05) |
-| 4 | Xuất Excel | Nút | — | — | — | Tải bảng xếp hạng (QT-07) |
+| 4 | Xuất Excel | Nút | — | — | — | Tải bảng xếp hạng (QT-07) — ẩn với Streamer & Khách công khai |
+| 4b | Khung Sự kiện & Thể lệ thi đua công khai | Thẻ viền vàng | — | Hiện tên mùa giải hiện tại, khoảng thời gian, trạng thái mùa và dòng thể lệ minh bạch M-03; khách chưa đăng nhập có nút "Đăng ký tham gia" | — | Giúp mọi người nắm ngay sự kiện đang diễn ra và quy tắc xếp hạng |
 | 5 | Thanh trạng thái: "5 phòng đang live" · "697 người đang xem" · "4 phiên đang chờ duyệt" | Chữ | — | Số lấy theo dữ liệu hiện tại | — | — |
 | 6 | Vào phòng live | Nút | — | — | — | Mở CN-02 Đang Live |
 | 7 | Duyệt phiên chờ | Nút vàng | — | — | — | Mở CN-08 Duyệt phiên live |
@@ -71,6 +72,7 @@ Không có (màn chỉ xem).
 |---|---|---|
 | M-01 | Bấm Xuất Excel | "Đã tải file bảng xếp hạng tuần (CSV mở bằng Excel)." |
 | M-02 | Bấm Sau → | "Đang hiển thị top 10 của tuần — bấm tab Tháng này hoặc Từ đầu để xem kỳ khác." |
+| M-03 | Dòng thể lệ công khai | "Thể lệ minh bạch: Mỗi phiên live ≥ 30 phút đã duyệt = 1 điểm · Bằng điểm xếp theo Tổng giờ live cao hơn · Quà / diamond không tính điểm." |
 | T-01 | Tên tệp tải | "picity-len-live-bang-xep-hang-tuan-16-11.csv" (mẫu) |
 
 ## 9. Tiêu chí nghiệm thu

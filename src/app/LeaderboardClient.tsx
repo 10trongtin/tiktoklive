@@ -32,24 +32,36 @@ export interface PeriodRankingDataset {
   rows: RankingTableEntry[];
 }
 
+export interface PublicEventBannerInfo {
+  seasonName: string;
+  seasonDateRange: string | null;
+  seasonStatus: 'sap_dien_ra' | 'dang_dien_ra' | 'da_khoa_bang';
+  teamCount: number;
+  projectCount: number;
+}
+
 export function LeaderboardClient({
   weekLabel,
   weekSlug,
   initialSecondsAgo,
+  isAuthenticated,
   canExport,
   canApprove,
   canOpenDetail,
   pendingSessionsCount,
+  eventInfo,
   liveRooms,
   datasets,
 }: {
   weekLabel: string;
   weekSlug: string;
   initialSecondsAgo: number;
+  isAuthenticated: boolean;
   canExport: boolean;
   canApprove: boolean;
   canOpenDetail: boolean;
   pendingSessionsCount: number;
+  eventInfo: PublicEventBannerInfo;
   liveRooms: LiveModalRoomData[];
   datasets: Record<RankingPeriodTab, PeriodRankingDataset>;
 }) {
@@ -121,7 +133,6 @@ export function LeaderboardClient({
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
-    // Ghi nhận lịch sử xuất ngầm trên máy chủ
     fetch('/api/reports/export', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -183,6 +194,59 @@ export function LeaderboardClient({
         </div>
       </div>
 
+      {/* CN-01 Mục 4b: Khung Sự kiện & Thể lệ thi đua công khai minh bạch */}
+      <div
+        className="card gold-border"
+        style={{
+          marginBottom: 18,
+          padding: '14px 18px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 16,
+          flexWrap: 'wrap',
+        }}
+      >
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              flexWrap: 'wrap',
+              marginBottom: 4,
+            }}
+          >
+            <strong style={{ fontSize: 15 }}>
+              Sự kiện thi đua: {eventInfo.seasonName}
+            </strong>
+            {eventInfo.seasonDateRange && (
+              <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+                ({eventInfo.seasonDateRange})
+              </span>
+            )}
+            {eventInfo.seasonStatus === 'da_khoa_bang' ? (
+              <span className="tag tag-gray">Đã khóa bảng</span>
+            ) : (
+              <span className="tag tag-green">Đang diễn ra</span>
+            )}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+            {/* CN-01 Mục 8 M-03 NGUYÊN VĂN */}
+            Thể lệ minh bạch: Mỗi phiên live ≥ 30 phút đã duyệt = 1 điểm · Bằng
+            điểm xếp theo Tổng giờ live cao hơn · Quà / diamond không tính điểm.
+          </div>
+        </div>
+
+        {!isAuthenticated && (
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <Link href="/dang-ky-tham-gia" className="btn btn-gold btn-sm">
+              Đăng ký tham gia
+            </Link>
+          </div>
+        )}
+      </div>
+
       {/* Thanh trạng thái nhanh */}
       <div
         className="card"
@@ -232,7 +296,9 @@ export function LeaderboardClient({
         <div className="card">
           <div className="kpi-label">Streamer tham gia</div>
           <div className="kpi-value">{allRows.length}</div>
-          <div className="kpi-sub up">Đang được theo dõi trong mùa</div>
+          <div className="kpi-sub up">
+            {eventInfo.teamCount} team · {eventInfo.projectCount} dự án Picity
+          </div>
         </div>
 
         <div className="card">
@@ -263,7 +329,7 @@ export function LeaderboardClient({
                 Đi tới Duyệt phiên →
               </Link>
             ) : (
-              'Đang chờ quản trị viên duyệt'
+              'Điểm chốt công khai sau khi duyệt'
             )}
           </div>
         </div>
@@ -358,6 +424,7 @@ export function LeaderboardClient({
               <div
                 style={{
                   fontFamily: 'var(--font-playfair), Georgia, serif',
+                  fontVariantNumeric: 'lining-nums tabular-nums',
                   fontWeight: 700,
                   fontSize: 18,
                   color: 'var(--navy)',

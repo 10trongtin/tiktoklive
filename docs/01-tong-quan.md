@@ -11,12 +11,12 @@
 - Xuất báo cáo làm căn cứ tính thưởng ("Bảng điểm chốt tháng — Căn cứ tính thưởng").
 
 ## 2. Người dùng
-| Người dùng | Việc chính (theo giao diện) |
+| Người dùng | Việc chính (theo giao diện & quyết định 27/11/2026) |
 |---|---|
-| Streamer | Đăng ký tham gia, live, xem Dashboard của tôi, gửi bằng chứng cho phiên thiếu dữ liệu |
+| Khách công khai (mọi người) | Không cần đăng nhập: xem thông tin sự kiện & thể lệ cuộc thi, Bảng xếp hạng, Đang Live, Chi tiết streamer (lịch sử phiên & biểu đồ người xem minh bạch), gửi Đăng ký tham gia |
+| Streamer | Đăng ký tham gia, live, xem Dashboard của tôi, gửi bằng chứng cho phiên thiếu dữ liệu, xem Bảng xếp hạng / Đang Live / Chi tiết streamer |
 | Admin (Quản trị viên) | Duyệt đăng ký, duyệt phiên live, quản lý streamer · team · dự án, mùa giải, luật điểm & API, báo cáo |
-| Cấp điều hành (chưa rõ tên vai trò) | Xem Tổng quan điều hành, xuất báo cáo tuần |
-| Trưởng team (chưa rõ có tài khoản) | Được nhắc tên trong câu "Cần trưởng team nhắc trong hôm nay" |
+| Cấp điều hành | Xem Tổng quan điều hành, Bảng xếp hạng, Đang Live, Chi tiết streamer, xuất báo cáo |
 
 > Giao diện mẫu chỉ có một người đăng nhập là "Admin Picity", thấy mọi menu. Ai thấy menu nào: xem 05-phan-quyen.md và CH-09.
 

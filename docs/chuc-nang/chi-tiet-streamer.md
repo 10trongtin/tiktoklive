@@ -15,7 +15,7 @@
 | Vai trò | Được làm gì ở chức năng này | Không được làm gì |
 |---|---|---|
 | Admin | Chọn bất kỳ streamer, xem, đi tới phiên chờ duyệt, mở TikTok | — |
-| Streamer / vai trò khác | chưa rõ (xem của mình hay của mọi người — CH-09) | chưa rõ |
+| Cấp điều hành · Streamer · Khách công khai | Mở công khai không cần đăng nhập; chọn xem minh bạch hồ sơ, lịch sử phiên và biểu đồ người xem của bất kỳ streamer nào, mở TikTok (không hiển thị SĐT/email) | Xem phiên chờ duyệt |
 
 ## 3. Đường vào màn
 1. Menu thanh bên "Chi tiết streamer" (nhóm Streamer).

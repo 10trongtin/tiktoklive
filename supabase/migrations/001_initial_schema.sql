@@ -229,15 +229,16 @@ alter table public.session_proofs enable row level security;
 alter table public.report_exports enable row level security;
 alter table public.notifications enable row level security;
 
--- Public read cho teams & projects để màn công khai CN-06 Đăng ký tham gia đọc được
+-- Public read cho cổng công khai minh bạch cuộc thi (CN-01, CN-02, CN-04, CN-06)
+-- Lưu ý: bảng streamers chỉ đọc qua Server Components (service role) để không lộ phone_zalo / work_email ra client
 create policy "Public read teams" on public.teams for select using (true);
 create policy "Public read projects" on public.projects for select using (true);
+create policy "Public read seasons" on public.seasons for select using (true);
+create policy "Public read settings" on public.system_settings for select using (true);
+create policy "Public read sessions" on public.live_sessions for select using (true);
+create policy "Public read snapshots" on public.session_snapshots for select using (true);
 create policy "Public insert registrations" on public.registrations for insert with check (committed = true);
 
 -- Authenticated read policies theo vai trò
 create policy "Authenticated read profiles" on public.user_profiles for select to authenticated using (true);
-create policy "Authenticated read seasons" on public.seasons for select to authenticated using (true);
-create policy "Authenticated read settings" on public.system_settings for select to authenticated using (true);
 create policy "Authenticated read streamers" on public.streamers for select to authenticated using (true);
-create policy "Authenticated read sessions" on public.live_sessions for select to authenticated using (true);
-create policy "Authenticated read snapshots" on public.session_snapshots for select to authenticated using (true);

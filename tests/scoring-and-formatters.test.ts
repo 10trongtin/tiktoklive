@@ -246,10 +246,14 @@ describe('Phân quyền vai trò và ẩn menu (05-phan-quyen.md)', () => {
   it('ẩn các menu quản trị với Streamer và Cấp điều hành', () => {
     const streamerMenus = getVisibleNavItems('streamer').map((m) => m.code);
     expect(streamerMenus).toContain('CN-01');
+    expect(streamerMenus).toContain('CN-04');
     expect(streamerMenus).toContain('CN-05');
     expect(streamerMenus).toContain('CN-07');
     expect(streamerMenus).not.toContain('CN-08');
     expect(streamerMenus).not.toContain('CN-03');
+
+    const publicMenus = getVisibleNavItems(null).map((m) => m.code);
+    expect(publicMenus).toEqual(['CN-01', 'CN-02', 'CN-04', 'CN-06']);
 
     const execMenus = getVisibleNavItems('executive').map((m) => m.code);
     expect(execMenus).toContain('CN-03');
@@ -257,11 +261,21 @@ describe('Phân quyền vai trò và ẩn menu (05-phan-quyen.md)', () => {
     expect(execMenus).not.toContain('CN-08');
     expect(execMenus).not.toContain('CN-12');
 
+    // Khách chưa đăng nhập (role = null) xem được các trang công khai minh bạch, bị chặn các trang quản trị/nội bộ
+    expect(canAccessRoute(null, '/')).toBe(true);
+    expect(canAccessRoute(null, '/dang-live')).toBe(true);
+    expect(canAccessRoute(null, '/chi-tiet-streamer')).toBe(true);
     expect(canAccessRoute(null, '/dang-ky-tham-gia')).toBe(true);
     expect(canAccessRoute(null, '/duyet-phien-live')).toBe(false);
+    expect(canAccessRoute(null, '/dashboard-cua-toi')).toBe(false);
+    expect(canAccessRoute(null, '/tong-quan-dieu-hanh')).toBe(false);
+    expect(canAccessRoute(null, '/bao-cao')).toBe(false);
+
     expect(canApproveSessions('admin')).toBe(true);
     expect(canApproveSessions('executive')).toBe(false);
+    expect(canApproveSessions(null)).toBe(false);
     expect(canExportRankingExcel('executive')).toBe(true);
     expect(canExportRankingExcel('streamer')).toBe(false);
+    expect(canExportRankingExcel(null)).toBe(false);
   });
 });

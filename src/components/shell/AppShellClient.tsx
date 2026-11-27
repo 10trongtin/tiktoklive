@@ -298,7 +298,7 @@ export function AppShellClient({
 
         <main className="content-wrap">{children}</main>
 
-        {user && mobileItems.length > 0 && (
+        {mobileItems.length > 0 && (
           <nav className="mobile-bottom-nav" aria-label="Menu dưới điện thoại">
             {mobileItems.map((item) => {
               const isActive = pathname === item.href;

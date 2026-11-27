@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { getCurrentSessionUser } from '@/lib/auth';
 import { getActiveSeason, getAllAppData } from '@/lib/repository';
 import { computeLeaderboard, getPeriodBounds } from '@/lib/scoring';
@@ -14,13 +13,18 @@ import {
   PeriodRankingDataset,
 } from '@/app/LeaderboardClient';
 
-export default async function LeaderboardPage() {
-  const user = await getCurrentSessionUser();
-  if (!user) {
-    redirect('/dang-nhap');
-  }
+function formatYmdDdMm(ymd: string): string {
+  const [, m, d] = ymd.split('-');
+  return `${d}/${m}`;
+}
 
-  const data = await getAllAppData();
+export default async function LeaderboardPage() {
+  // Mở công khai cho cả khách chưa đăng nhập (user có thể bằng null)
+  const [user, data] = await Promise.all([
+    getCurrentSessionUser(),
+    getAllAppData(),
+  ]);
+
   const now = new Date();
   const activeSeason = getActiveSeason(data.seasons);
   const weekBounds = getVietnamWeekBounds(now);
@@ -117,15 +121,29 @@ export default async function LeaderboardPage() {
     )
   );
 
+  const role = user?.role ?? null;
+
   return (
     <LeaderboardClient
       weekLabel={weekBounds.label}
       weekSlug={weekBounds.shortSlug}
       initialSecondsAgo={Math.min(secondsSincePoll, 59)}
-      canExport={canExportRankingExcel(user.role)}
-      canApprove={canApproveSessions(user.role)}
-      canOpenDetail={user.role === 'admin' || user.role === 'executive'}
+      isAuthenticated={Boolean(user)}
+      canExport={canExportRankingExcel(role)}
+      canApprove={canApproveSessions(role)}
+      canOpenDetail={true}
       pendingSessionsCount={pendingSessionsCount}
+      eventInfo={{
+        seasonName: activeSeason ? activeSeason.name : weekBounds.label,
+        seasonDateRange: activeSeason
+          ? `${formatYmdDdMm(activeSeason.startDate)} – ${formatYmdDdMm(
+              activeSeason.endDate
+            )}`
+          : null,
+        seasonStatus: activeSeason?.status ?? 'dang_dien_ra',
+        teamCount: data.teams.length,
+        projectCount: data.projects.length,
+      }}
       liveRooms={liveRooms}
       datasets={datasets}
     />

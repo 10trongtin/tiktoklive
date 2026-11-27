@@ -145,7 +145,11 @@ export default function LoginPage() {
           Sale mới chưa đăng ký tài khoản TikTok?{' '}
           <Link
             href="/dang-ky-tham-gia"
-            style={{ color: 'var(--gold)', fontWeight: 700 }}
+            style={{
+              color: 'var(--gold)',
+              fontWeight: 700,
+              whiteSpace: 'nowrap',
+            }}
           >
             Đăng ký tham gia →
           </Link>

@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
-import { getCurrentSessionUser } from '@/lib/auth';
 import { getAllAppData } from '@/lib/repository';
 import {
   ActiveLiveCardItem,
@@ -7,17 +5,13 @@ import {
 } from '@/app/dang-live/LiveRoomsClient';
 
 export default async function LiveRoomsPage() {
-  const user = await getCurrentSessionUser();
-  if (!user) {
-    redirect('/dang-nhap');
-  }
-
+  // Mở công khai cho cả người xem chưa đăng nhập
   const data = await getAllAppData();
   const now = new Date();
   const streamerMap = new Map(data.streamers.map((s) => [s.id, s]));
   const projectMap = new Map(data.projects.map((p) => [p.id, p]));
 
-  const canViewProfile = user.role === 'admin' || user.role === 'executive';
+  const canViewProfile = true;
 
   // Sắp xếp theo số người xem giảm dần
   const activeSessions = data.liveSessions

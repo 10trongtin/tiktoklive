@@ -2,7 +2,13 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
 
-const PUBLIC_PATHS = ['/dang-nhap', '/dang-ky-tham-gia'];
+const PUBLIC_PATHS = [
+  '/',
+  '/dang-live',
+  '/chi-tiet-streamer',
+  '/dang-ky-tham-gia',
+  '/dang-nhap',
+];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

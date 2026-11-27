@@ -521,7 +521,8 @@ a {
 .btn-gold {
   background: var(--gold);
   border-color: var(--gold);
-  color: #ffffff;
+  color: #10294f;
+  font-weight: 700;
 }
 
 .btn-gold:hover:not(:disabled) {
@@ -626,6 +627,7 @@ a {
 .kpi-value {
   margin-top: 6px;
   font-family: var(--font-playfair), Georgia, serif;
+  font-variant-numeric: lining-nums tabular-nums;
   font-size: 28px;
   font-weight: 700;
   color: var(--text);

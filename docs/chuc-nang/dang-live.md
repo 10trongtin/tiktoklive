@@ -16,8 +16,7 @@
 ## 2. Ai dùng
 | Vai trò | Được làm gì ở chức năng này | Không được làm gì |
 |---|---|---|
-| Admin | Xem, mở hộp Xem phòng live, mở Hồ sơ, mở TikTok | — |
-| Vai trò khác | chưa rõ (CH-09) | chưa rõ |
+| Admin · Cấp điều hành · Streamer · Khách công khai | Mở công khai không cần đăng nhập; xem phòng đang phát, mở hộp Xem phòng live, mở Hồ sơ (Chi tiết streamer), mở TikTok | — |
 
 ## 3. Đường vào màn
 1. Menu thanh bên "Đang Live" (có số đỏ = số phòng đang live), hoặc menu dưới "Đang Live".
